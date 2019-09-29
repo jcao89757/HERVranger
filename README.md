@@ -37,5 +37,6 @@ Prefix: a user decided sample name.
 ```{r}
 python Realignment_maint.py /path/to/library1 /path/to/library2 /path/to/ref.gtf /path/output R1.fastq.gz R2.fastq.gz /path/to/saved/RNA_Seqs Prefix
 ```
+If an index file like the example [samples_example.xlsx] is provided, the [jobupload.py] script may be applied to generate large batches of job scripts. The index file is expected to contain one 'Root_tree' column, one 'Seq_ID' column and one 'Path' column.
 ## Version update
 1.0.0: First release. (09-28-2019)
