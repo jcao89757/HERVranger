@@ -7,9 +7,7 @@ import os
 from collections import Counter
 samfile=sys.argv[1]
 normfile=sys.argv[2]
-#test:
-#samfile='/Users/zhangze/Desktop/test_reads/test.sam'
-#normfile='/Users/zhangze/Desktop/test_reads/9267090_1_R1.fastq.gzFeatures.txt'
+
 sam=open(samfile,'r')
 ID=[]
 feature=[]
@@ -58,5 +56,3 @@ if not os.path.isfile(samfile+'.ctrlfreqs.csv') or os.stat(samfile+'.ctrlfreqs.c
 	df.index.name=None
 	df.to_csv(samfile+'.ctrlfreqs.csv')
 	sam.close()
-#rm_cmd1=' '.join(['rm',samfile,normfile])
-#os.system(rm_cmd1)
