@@ -1,7 +1,7 @@
-# HTSeq
+# HERVranger
 An alignment tool targeting the footprints of HERVs in human genomes
 ## Introduction
-HTSeq is a bioinformatics pipeline for the analysis of the footprints of human endogenous retroviruses (HERVs) from human genomes.
+HERVranger is a bioinformatics pipeline for the analysis of the footprints of human endogenous retroviruses (HERVs) from human genomes.
 ## Getting started
 ## Dependencies
 Linux (x86_64-redhat-linux-gn) shell (4.2.46(2))
