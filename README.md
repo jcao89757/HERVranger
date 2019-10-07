@@ -10,7 +10,7 @@ Python (>=2.7.16)
 
 STAR (>=2.5.2b)
 
-featureCounts (>=subread-1.6.1)
+featureCounts (subread-1.5.0 only)
 
 **Python packages**
 
