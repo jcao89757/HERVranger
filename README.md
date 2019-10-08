@@ -8,9 +8,11 @@ Linux (x86_64-redhat-linux-gn) shell (4.2.46(2))
 
 Python (>=2.7.16)
 
-STAR (>=2.5.2b)
+STAR (2.5.2b preferred)
 
 featureCounts (subread-1.5.0 only)
+
+Only run the jobs on 256GB nodes.
 
 **Python packages**
 
