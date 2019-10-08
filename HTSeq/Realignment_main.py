@@ -27,6 +27,10 @@ output_path=os.path.join(Data_path,output_prefix)
 out_NSAM=os.path.join(output_path,(output_prefix+'Aligned.out.sam'))
 out_Nfeature=os.path.join(output_path,(output_prefix+'Features.txt'))
 feature_details=out_NSAM+'.featureCounts'
+test_feature_details='.'.join([Data_path.replace('/','.'),output_prefix,
+  (output_prefix+'Aligned.out.sam'),'featureCounts'])
+test_feature_details=test_feature_details[1:]
+#test_feature_details is to fix a featureCounts bug containing false paths.
 HSAM=os.path.join(output_path,'unmated_realignmentAligned.out.sam')
 CtrlNorm=os.path.join(output_path,(output_prefix+'Features.txt'))
 unmated1 = os.path.join(Data_path, output_prefix, (output_prefix + 'Unmapped.out.mate1'))
@@ -42,6 +46,8 @@ print('1st Alignment completed: '+output_prefix)
 cmd_featureCounts= 'featureCounts -T 32 -p -f --donotsort -R -M -a ' + Align_Ref + ' -o ' + out_Nfeature + ' ' + out_NSAM + '\n'
 os.system(cmd_featureCounts)
 print('1st featureCounts completed: '+output_prefix)
+if os.path.isfile(test_feature_details):
+  os.rename(test_feature_details,feature_details)
 cmd_pyextract=' '.join(['python Realignment_putativeHERVs.py',Align_HERVRef,Data_path,name_R1,name_R2,Fasta_path,out_NSAM,feature_details,output_prefix,'\n'])
 os.system(cmd_pyextract)
 print('Putative HERV extraction completed: '+output_prefix)
