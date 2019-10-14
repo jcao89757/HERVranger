@@ -2,6 +2,7 @@
 import os
 import sys
 import re
+import shutil
 
 sys.path.append(os.path.dirname(sys.argv[0]))
 Align_index=sys.argv[1]
@@ -50,7 +51,7 @@ cmd_featureCounts= 'featureCounts -T 32 -p -f --donotsort -R -M -a ' + Align_Ref
 os.system(cmd_featureCounts)
 print('1st featureCounts completed: '+output_prefix)
 if os.path.isfile(test_feature_details):
-  os.rename(test_feature_details,feature_details)
+  shutil.move(test_feature_details,feature_details)
 cmd_pyextract=' '.join(['python Realignment_putativeHERVs.py',Align_HERVRef,Data_path,name_R1,name_R2,Fasta_path,out_NSAM,feature_details,output_prefix,'\n'])
 os.system(cmd_pyextract)
 print('Putative HERV extraction completed: '+output_prefix)
