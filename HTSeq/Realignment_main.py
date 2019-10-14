@@ -28,9 +28,11 @@ output_path=os.path.join(Data_path,output_prefix)
 out_NSAM=os.path.join(output_path,(output_prefix+'Aligned.out.sam'))
 out_Nfeature=os.path.join(output_path,(output_prefix+'Features.txt'))
 feature_details=out_NSAM+'.featureCounts'
+cur_dict=os.getcwd()
 test_feature_details='.'.join([Data_path.replace('/','.'),output_prefix,
   (output_prefix+'Aligned.out.sam'),'featureCounts'])
 test_feature_details=test_feature_details[1:]
+test_feature_details=os.path.join(cur_dict,test_feature_details)
 #test_feature_details is to fix a featureCounts bug containing false paths.
 HSAM=os.path.join(output_path,'unmated_realignmentAligned.out.sam')
 CtrlNorm=os.path.join(output_path,(output_prefix+'Features.txt'))
