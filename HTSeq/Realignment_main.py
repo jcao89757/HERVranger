@@ -4,7 +4,7 @@ import sys
 import re
 import shutil
 
-sys.path.append(os.path.dirname(sys.argv[0]))
+sys_path=os.path.dirname(sys.argv[0])
 Align_index=sys.argv[1]
 Align_HERVRef= sys.argv[2]
 Align_Ref=sys.argv[3]
@@ -34,7 +34,6 @@ test_feature_details='.'.join([Data_path.replace('/','.'),output_prefix,
   (output_prefix+'Aligned.out.sam'),'featureCounts'])
 test_feature_details=test_feature_details[1:]
 test_feature_details=os.path.join(cur_dict,test_feature_details)
-#test_feature_details is to fix a featureCounts bug containing false paths.
 HSAM=os.path.join(output_path,'unmated_realignmentAligned.out.sam')
 CtrlNorm=os.path.join(output_path,(output_prefix+'Features.txt'))
 unmated1 = os.path.join(Data_path, output_prefix, (output_prefix + 'Unmapped.out.mate1'))
@@ -52,12 +51,12 @@ os.system(cmd_featureCounts)
 print('1st featureCounts completed: '+output_prefix)
 if os.path.isfile(test_feature_details):
   shutil.move(test_feature_details,feature_details)
-cmd_pyextract=' '.join(['python Realignment_putativeHERVs.py',Align_HERVRef,Data_path,name_R1,name_R2,Fasta_path,out_NSAM,feature_details,output_prefix,'\n'])
+cmd_pyextract=' '.join(['python',os.path.join(sys_path,'Realignment_putativeHERVs.py'),Align_HERVRef,Data_path,name_R1,name_R2,Fasta_path,out_NSAM,feature_details,output_prefix,'\n'])
 os.system(cmd_pyextract)
 print('Putative HERV extraction completed: '+output_prefix)
 cmd_STAR = ' '.join(['STAR','--runMode','alignReads','--runThreadN','40','--genomeDir',Align_HERVRef,'--readFilesIn',unmated1,unmated2,'--outFilterMultimapNmax','20','--outFilterMismatchNoverLmax','0.05','outReadsUnmapped','None','--outFileNamePrefix',os.path.join(Data_path, output_prefix, 'unmated_realignment')])
 os.system(cmd_STAR)
-cmd_samCount=' '.join(['python Realignment_samfeatureCount.py',HSAM,CtrlNorm])
+cmd_samCount=' '.join(['python',os.path.join(sys_path,'Realignment_samfeatureCount.py'),HSAM,CtrlNorm])
 os.system(cmd_samCount)
 print('HERV counting completed: '+output_prefix)
 
