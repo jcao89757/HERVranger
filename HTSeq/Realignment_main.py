@@ -3,6 +3,7 @@ import os
 import sys
 import re
 
+sys.path.append(os.path.dirname(sys.argv[0]))
 Align_index=sys.argv[1]
 Align_HERVRef= sys.argv[2]
 Align_Ref=sys.argv[3]
