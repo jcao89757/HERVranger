@@ -31,7 +31,7 @@ output: a path to build a result folder (named by Prefix) to write result files 
 
 R1.fastq.gz, R2.fastq.gz: a pair of pair-end RNA-Seqs.
 
-*To apply HERVranger to single-strand alignments, please input R1.fastq.gz NA, i.e. replace the R2.fastq.gz with a string 'NA' and keep the space between them.*
+**To apply HERVranger to single-strand alignments, please input R1.fastq.gz NA, i.e. replace the R2.fastq.gz with a string 'NA' and keep the space between them.**
 
 Path_to_saved_RNA_Seqs: where the pair of RNA-Seqs stores.
 
