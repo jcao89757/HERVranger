@@ -15,7 +15,7 @@ index_done=sys.argv[2]
 data_path=sys.argv[3]
 #data_path='/home2/s421955/projects/retrovirus/data'
 #output data path
-index=pd.read_table(index_file,header=0,sep=',')
+index=pd.read_table(index_file,header=0,sep='\t')
 index_do=pd.read_table(index_done,header=None,sep=',')
 j=0
 for i in range(0,len(index)):
