@@ -8,5 +8,7 @@
 #source ~/.bash_profile
 
 ##########  JOBSTART  ###################
+#Pair-end
 python /home2/s421955/projects/retrovirus/code/HERVranger/Realignment_main.py /project/SCCC/Wang_lab/shared/HERV_Ref/STAR /project/SCCC/Wang_lab/shared/HERV_Ref/STAR_HERV_092717 /project/SCCC/Wang_lab/shared/HERV_Ref/hg38mm10.gtf /home2/s421955/projects/retrovirus/data SRR6468300_1.fastq.gz SRR6468300_2.fastq.gz /project/bioinformatics/Xiao_lab/shared/genomics/dbgap/dbGaP-17356/ RCC_106
-python /home2/s421955/projects/retrovirus/code/HERVranger/Realignment_main.py /project/SCCC/Wang_lab/shared/HERV_Ref/STAR /project/SCCC/Wang_lab/shared/HERV_Ref/STAR_HERV_092717 /project/SCCC/Wang_lab/shared/HERV_Ref/hg38mm10.gtf /home2/s421955/projects/retrovirus/data SRR6468301_1.fastq.gz SRR6468301_2.fastq.gz /project/bioinformatics/Xiao_lab/shared/genomics/dbgap/dbGaP-17356/ RCC_21
+#Single-end
+python /home2/s421955/projects/retrovirus/code/HERVranger/Realignment_main.py /project/SCCC/Wang_lab/shared/HERV_Ref/STAR /project/SCCC/Wang_lab/shared/HERV_Ref/STAR_HERV_092717 /project/SCCC/Wang_lab/shared/HERV_Ref/hg38mm10.gtf /home2/s421955/projects/retrovirus/data SRR6468300_1.fastq.gz NA /project/bioinformatics/Xiao_lab/shared/genomics/dbgap/dbGaP-17356/ RCC_106
