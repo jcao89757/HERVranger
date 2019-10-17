@@ -31,6 +31,8 @@ output: a path to build a result folder (named by Prefix) to write result files 
 
 R1.fastq.gz, R2.fastq.gz: a pair of pair-end RNA-Seqs.
 
+To apply HERVranger to single-strand alignments, please input R1.fastq.gz NA, i.e. replace the R2.fastq.gz with a string 'NA' and keep the space between them.
+
 Path_to_saved_RNA_Seqs: where the pair of RNA-Seqs stores.
 
 Prefix: a user decided sample name.
@@ -42,3 +44,4 @@ python Realignment_maint.py /path/to/library1 /path/to/library2 /path/to/ref.gtf
 If an index file like the example [samples_example.xlsx] is provided, the [jobupload.py] script may be applied to generate large batches of job scripts. The index file is expected to contain one 'Root_tree' column, one 'Seq_ID' column and one 'Path' column.
 ## Version update
 1.0.0: First release. (09-28-2019)
+1.1.0: Update. Single-strand alignment mode was provided. (10-17-2019)
