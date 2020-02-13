@@ -48,7 +48,7 @@ def write_fasta(filled_fa_fea,unmated_edit1,unmated_edit2):
     unmated_edit2.write(line3[1])
     unmated_edit2.write(line4[1])
 
-def seqExtract(Fasta_path, Data_path,name_R1,name_R2, feature_details, unmated1, unmated2,output_prefix):
+def seqExtract(Fasta_path, Data_path,name_R1,name_R2, feature_details, unmated1, unmated2,output_prefix,mode):
     pattern = 'initial'
     dict_feature = {'initial': 1, }
     dict_unsolved = {}
@@ -67,11 +67,16 @@ def seqExtract(Fasta_path, Data_path,name_R1,name_R2, feature_details, unmated1,
     cmd_unzip1=' '.join(['gzip','-d',Fasta_R1_cur_gz])
     os.system(cmd_unzip1)
     Fasta_R1_cur_gz=os.path.join(current_folder,name_R1.replace('.gz',''))
-    if not os.path.isfile(Fasta_R2_cur_gz):
-        os.system(cmd_cpfastaR2)
-    cmd_unzip2=' '.join(['gzip','-d',Fasta_R2_cur_gz])
-    os.system(cmd_unzip2)
-    Fasta_R2_cur_gz=os.path.join(current_folder,name_R2.replace('.gz',''))
+    if mode=='paired':
+        if not os.path.isfile(Fasta_R2_cur_gz):
+            os.system(cmd_cpfastaR2)
+        cmd_unzip2=' '.join(['gzip','-d',Fasta_R2_cur_gz])
+        os.system(cmd_unzip2)
+        Fasta_R2_cur_gz = os.path.join(current_folder, name_R2.replace('.gz', ''))
+    else:
+        Fasta_R2_cur_gz = os.path.join(current_folder, name_R2.replace('.gz', ''))
+        cmd_cpunzip=' '.join(['cp',Fasta_R1_cur_gz,Fasta_R2_cur_gz])
+        os.system(cmd_cpunzip)
     unmated_edit1 = open(unmated1, 'w')
     unmated_edit2 = open(unmated2, 'w')
     # Iteration: feature_index

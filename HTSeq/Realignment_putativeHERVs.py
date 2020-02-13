@@ -21,12 +21,13 @@ Fasta_path=sys.argv[5]
 SAMfile=sys.argv[6]
 feature_details=sys.argv[7]
 output_prefix=sys.argv[8]
+mode=sys.argv[9]
 
 ## Built in paths
 unmated1 = os.path.join(Data_path, output_prefix, (output_prefix + 'Unmapped.out.mate1'))
 unmated2 = os.path.join(Data_path, output_prefix, (output_prefix + 'Unmapped.out.mate2'))
 
-seqExtract(Fasta_path, Data_path, name_R1,name_R2, feature_details, unmated1, unmated2, output_prefix)
+seqExtract(Fasta_path, Data_path, name_R1,name_R2, feature_details, unmated1, unmated2, output_prefix, mode)
 
 print('Running time: ')
 print(time.time()-start_time, 'seconds')

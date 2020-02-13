@@ -13,6 +13,7 @@ name_R1=sys.argv[5]
 name_R2=sys.argv[6]
 Fasta_path=sys.argv[7]
 output_prefix=sys.argv[8]
+mode='paired'
 if len(sys.argv)>9:
 	test_status=sys.argv[9]
 else:
@@ -22,6 +23,8 @@ if name_R1.find('/')>=0:
 	name_R1=re.split('/',name_R1)[-1]
 if name_R2.find('/')>=0:
 	name_R2=re.split('/',name_R2)[-1]
+if name_R2=='NA':
+	mode='single'
 	
 pathR1=os.path.join(Fasta_path,name_R1)
 pathR2=os.path.join(Fasta_path,name_R2)
@@ -41,20 +44,35 @@ unmated2 = os.path.join(Data_path, output_prefix, (output_prefix + 'Unmapped.out
 if not os.path.exists(output_path):
 	os.makedirs(output_path)
 	#--limitOutSAMoneReadBytes 1000000 may not be necessary in other systems
-cmd_STARNORM='STAR --runMode alignReads --runThreadN 40 --genomeDir '+Align_index+' --readFilesIn '+pathR1+' '+pathR2+\
+if mode=='paired':
+	cmd_STARNORM='STAR --runMode alignReads --runThreadN 40 --genomeDir '+Align_index+' --readFilesIn '+pathR1+' '+pathR2+\
         ' --readFilesCommand zcat --limitOutSAMoneReadBytes 1000000 --outFilterMultimapNmax 200 --outSAMunmapped Within --outSAMorder PairedKeepInputOrder --outReadsUnmapped None --outFileNamePrefix '+\
-        os.path.join(output_path,output_prefix)+'\n'
+        	os.path.join(output_path,output_prefix)+'\n'
+else:
+	cmd_STARNORM = 'STAR --runMode alignReads --runThreadN 40 --genomeDir ' + Align_index + ' --readFilesIn ' + pathR1 + \
+				   ' --readFilesCommand zcat --limitOutSAMoneReadBytes 1000000 --outFilterMultimapNmax 200 --outSAMunmapped Within --outSAMorder PairedKeepInputOrder --outReadsUnmapped None --outFileNamePrefix ' + \
+				   os.path.join(output_path, output_prefix) + '\n'
 os.system(cmd_STARNORM)
 print('1st Alignment completed: '+output_prefix)
-cmd_featureCounts= 'featureCounts -T 32 -p -f --donotsort -R -M -a ' + Align_Ref + ' -o ' + out_Nfeature + ' ' + out_NSAM + '\n'
+if mode=='paired':
+	cmd_featureCounts= 'featureCounts -T 32 -p -f --donotsort -R -M -a ' + Align_Ref + ' -o ' + out_Nfeature + ' ' + out_NSAM + '\n'
+else:
+	cmd_featureCounts = 'featureCounts -T 32 -f --donotsort -R -M -a ' + Align_Ref + ' -o ' + out_Nfeature + ' ' + out_NSAM + '\n'
 os.system(cmd_featureCounts)
 print('1st featureCounts completed: '+output_prefix)
 if os.path.isfile(test_feature_details):
   shutil.move(test_feature_details,feature_details)
-cmd_pyextract=' '.join(['python',os.path.join(sys_path,'Realignment_putativeHERVs.py'),Align_HERVRef,Data_path,name_R1,name_R2,Fasta_path,out_NSAM,feature_details,output_prefix,'\n'])
+cmd_pyextract=' '.join(['python',os.path.join(sys_path,'Realignment_putativeHERVs.py'),Align_HERVRef,Data_path,name_R1,name_R2,Fasta_path,out_NSAM,feature_details,output_prefix,mode,'\n'])
 os.system(cmd_pyextract)
 print('Putative HERV extraction completed: '+output_prefix)
-cmd_STAR = ' '.join(['STAR','--runMode','alignReads','--runThreadN','40','--genomeDir',Align_HERVRef,'--readFilesIn',unmated1,unmated2,'--outFilterMultimapNmax','20','--outFilterMismatchNoverLmax','0.05','outReadsUnmapped','None','--outFileNamePrefix',os.path.join(Data_path, output_prefix, 'unmated_realignment')])
+if mode=='paired':
+	cmd_STAR = ' '.join(['STAR','--runMode','alignReads','--runThreadN','40','--genomeDir',Align_HERVRef,'--readFilesIn',unmated1,unmated2,'--outFilterMultimapNmax','20','--outFilterMismatchNoverLmax','0.05','outReadsUnmapped','None','--outFileNamePrefix',os.path.join(Data_path, output_prefix, 'unmated_realignment')])
+else:
+	cmd_STAR = ' '.join(
+		['STAR', '--runMode', 'alignReads', '--runThreadN', '40', '--genomeDir', Align_HERVRef, '--readFilesIn',
+		 unmated1, '--outFilterMultimapNmax', '20', '--outFilterMismatchNoverLmax', '0.05',
+		 'outReadsUnmapped', 'None', '--outFileNamePrefix',
+		 os.path.join(Data_path, output_prefix, 'unmated_realignment')])
 os.system(cmd_STAR)
 cmd_samCount=' '.join(['python',os.path.join(sys_path,'Realignment_samfeatureCount.py'),HSAM,CtrlNorm])
 os.system(cmd_samCount)
