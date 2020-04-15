@@ -33,7 +33,7 @@ for lines in sam:
 info={'ID':ID,'feature':feature,'NH':NH,'strand':strand,'status':status}
 info=pd.DataFrame(info)
 if len(info[info.status==1])!=len(info[info.status==-1]):
-    print('ERROR: single strand alignment')
+    print('Warning: single strand alignment or unmatched paired-end sequences.')
 info_pos=info[info.status==1].sort_values(by='feature')
 #-M
 feature_freqs=Counter(info_pos['feature'])
