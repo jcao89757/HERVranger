@@ -7,6 +7,7 @@ import os
 from collections import Counter
 samfile=sys.argv[1]
 normfile=sys.argv[2]
+mode=sys.argv[3]
 
 sam=open(samfile,'r')
 ID=[]
@@ -32,13 +33,18 @@ for lines in sam:
         tmp=line[8]
 info={'ID':ID,'feature':feature,'NH':NH,'strand':strand,'status':status}
 info=pd.DataFrame(info)
-if len(info[info.status==1])!=len(info[info.status==-1]):
-    print('Warning: single strand alignment or unmatched paired-end sequences.')
-info_pos=info[info.status==1].sort_values(by='feature')
+if mode=='paired':
+    if len(info[info.status==1])!=len(info[info.status==-1]):
+    	print('Warning: unmatched paired-end sequences.')
+    info_pos=info[info.status==1].sort_values(by='feature')
+else:
+    info_pos=info.sort_values(by='feature')
 #-M
 feature_freqs=Counter(info_pos['feature'])
 d=pd.DataFrame.from_dict(feature_freqs,orient='index')
 d.rename(columns={0:'frequencies'})
+if mode=='single':
+    d['frequencies']=d['frequencies']/2
 #-M + fraction
 #features=info_pos['feature'].unique()
 #info_pos['NH']=[1/int(c) for c in info_pos['NH'].tolist()]
