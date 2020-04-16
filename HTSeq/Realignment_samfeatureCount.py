@@ -43,8 +43,6 @@ else:
 feature_freqs=Counter(info_pos['feature'])
 d=pd.DataFrame.from_dict(feature_freqs,orient='index')
 d.rename(columns={0:'frequencies'})
-if mode=='single':
-    d['frequencies']=d['frequencies']/2
 #-M + fraction
 #features=info_pos['feature'].unique()
 #info_pos['NH']=[1/int(c) for c in info_pos['NH'].tolist()]
