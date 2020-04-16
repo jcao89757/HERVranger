@@ -74,7 +74,7 @@ else:
 		 'outReadsUnmapped', 'None', '--outFileNamePrefix',
 		 os.path.join(Data_path, output_prefix, 'unmated_realignment')])
 os.system(cmd_STAR)
-cmd_samCount=' '.join(['python',os.path.join(sys_path,'Realignment_samfeatureCount.py'),HSAM,CtrlNorm])
+cmd_samCount=' '.join(['python',os.path.join(sys_path,'Realignment_samfeatureCount.py'),HSAM,CtrlNorm,mode])
 os.system(cmd_samCount)
 print('HERV counting completed: '+output_prefix)
 
