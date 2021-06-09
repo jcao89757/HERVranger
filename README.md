@@ -1,7 +1,8 @@
 # HERVranger
 An alignment tool targeting the footprints of HERVs in human genomes
 ## Introduction
-HERVranger is a bioinformatics pipeline for the analysis of the footprints of human endogenous retroviruses (HERVs) from human genomes.
+HERVranger is a bioinformatics pipeline for the analysis of the footprints of human endogenous retroviruses (HERVs) from human genomes. The hg38 human genome annotation from the UCSC Genome Browser has only partially annotated some HERVs. Therefore, we reviewed and extracted 3,659 known HERV sequences from both the hg38 annotation and the NCBI RefSeq database, and built these HERV sequences as a HERV reference genome for the STAR aligner. The RNA-Seq data of each tumor and normal sample was first aligned to the hg38 genome. FeatureCounts was used to count the expression of the non-HERV genes in the hg38 annotation. We extracted the unmapped reads and the reads that were mapped to the HERVs annotated in hg38. Then we re-aligned them with the HERV reference genome. We performed quantile normalization for the counts of the HERVs together with the expression of the non-HERV genes. In this way we achieved high confident HERV references and expression levels.
+
 ## Getting started
 ## Dependencies
 Linux (x86_64-redhat-linux-gn) shell (4.2.46(2))
